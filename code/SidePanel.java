@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Represents the side panel of the game UI where the player's info are displayed.
- * @author Archange DESTINE
- */
+* Represents the side panel of the game UI where the player's info are displayed.
+* @author Archange DESTINE
+*/
 
 public class SidePanel extends JPanel {
 
@@ -27,24 +27,23 @@ public class SidePanel extends JPanel {
         add(p2Panel);
     }
 
-    private JPanel createPlayer(String name, String avatarPath) {
-        //add border around the avatar to indicate whose turn it is. We can do this by passing the player names and avatars to the side panel, and then updating the side panel whenever the turn changes.
+private JPanel createPlayer(String name, String avatarPath) {
+    //add border around the avatar to indicate whose turn it is. We can do this by passing the player names and avatars to the side panel, and then updating the side panel whenever the turn changes.
 
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(Color.DARK_GRAY);
+    JPanel panel = new JPanel(new BorderLayout());
+    panel.setBackground(Color.DARK_GRAY);
 
-        ImageIcon icon = new ImageIcon(avatarPath);
-        JLabel avatar = new JLabel(icon);
-        avatar.setHorizontalAlignment(JLabel.CENTER);
-        avatar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));  
+    ImageIcon icon = new ImageIcon(avatarPath);
+    JLabel avatar = new JLabel(icon);
+    avatar.setHorizontalAlignment(JLabel.CENTER);
+    avatar.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2));
 
-        JLabel label = new JLabel(name, JLabel.CENTER);
-        label.setForeground(Color.WHITE);
+    JLabel label = new JLabel(name, JLabel.CENTER);
+    label.setForeground(Color.WHITE);
 
-        panel.add(avatar, BorderLayout.CENTER);
-        panel.add(label, BorderLayout.SOUTH);
+    panel.add(avatar, BorderLayout.CENTER);
+    panel.add(label, BorderLayout.SOUTH);
 
-        return panel;
-    }
+    return panel;
 }
-
+}
