@@ -1,5 +1,3 @@
-
-
 public class tester {
     int connectN = 4;
 
@@ -20,89 +18,85 @@ public class tester {
                 if (b[r][c] == piece){
                     picinline++;
                 }
-                else{
-                    picinline = 0;
-                }
-                if(picinline == this.connectN) return true;
+            else{
+                picinline = 0;
             }
-        }
-        picinline = 0;
+        if(picinline == this.connectN) return true;
+    }
+}
+picinline = 0;
 
-        //Vertical
-        for (int c =0; c < b[0].length; c++){
+//Vertical
+for (int c =0; c < b[0].length; c++){
+    picinline = 0;
+    for (int r =0; r< b.length; r++){
+        if (b[r][c] == piece){
+            picinline++;
+        }
+    else{
+        picinline = 0;
+    }
+if(picinline == this.connectN) return true;
+}
+}
+picinline = 0;
+
+//Diogonal down right
+for (int r =0; r < b.length; r++){
+    for (int c =0; c< b[r].length; c++){
+        picinline = 0;
+        int i = r;
+        int j = c;
+
+        while (i < b.length && j < b[0].length) {
+            if (b[i][j] == piece) {
+                picinline++;
+                if (picinline == connectN) return true;
+            } else {
             picinline = 0;
-            for (int r =0; r< b.length; r++){
-                if (b[r][c] == piece){
-                    picinline++;
-                }
-                else{
-                    picinline = 0;
-                }
-                if(picinline == this.connectN) return true;
-            }
         }
+    i++;
+    j++;
+}
+}
+
+}
+picinline = 0;
+
+//Diogonal down left
+for (int r =0; r < b.length; r++){
+    for (int c = b[r].length - 1; c >= 0; c--){
         picinline = 0;
+        int i = r;
+        int j = c;
 
-        //Diogonal down right
-        for (int r =0; r < b.length; r++){
-            for (int c =0; c< b[r].length; c++){
-                picinline = 0;
-                int i = r;
-                int j = c;
-
-                while (i < b.length && j < b[0].length) {
-                    if (b[i][j] == piece) {
-                        picinline++;
-                        if (picinline == connectN) return true;
-                    } else {
-                        picinline = 0;
-                    }
-                    i++;
-                    j++;
-                }
-            }
-
+        while (i < b.length && j >= 0) {
+            if (b[i][j] == piece) {
+                picinline++;
+                if (picinline == connectN) return true;
+            } else {
+            picinline = 0;
         }
-        picinline = 0;
+    i++;
+    j--;
+}
+}
+}
+picinline = 0;
 
-
-        //Diogonal down left
-        for (int r =0; r < b.length; r++){
-            for (int c = b[r].length - 1; c >= 0; c--){
-                picinline = 0;
-                int i = r;
-                int j = c;
-
-                while (i < b.length && j >= 0) {
-                    if (b[i][j] == piece) {
-                        picinline++;
-                        if (picinline == connectN) return true;
-                    } else {
-                        picinline = 0;
-                    }
-                    i++;
-                    j--;
-                }
-            }
-        }
-        picinline = 0;
-
-
-
-
-        return false;
-    }
-    public static void main(String args[]) {
-        int[][] a = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        };
-        tester b = new tester();
-        Player p = new HumanPlayer( "abo");
-        System.out.print(b.checkWinForBoardState(a,p ));
-    }
+return false;
+}
+public static void main(String args[]) {
+    int[][] a = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
+        {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+    };
+tester b = new tester();
+Player p = new HumanPlayer( "abo");
+System.out.print(b.checkWinForBoardState(a,p ));
+}
 
 }
