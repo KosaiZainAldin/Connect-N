@@ -1,8 +1,8 @@
 /**
- * Subclass of Player representing a human player.
- * @author Archange DESTINE
- * @author YOUR_NAME_HERE
- */
+* Subclass of Player representing a human player.
+* @author Archange DESTINE
+* @author Kosai Zain Aldin
+*/
 
 public class HumanPlayer extends Player {
 
@@ -12,8 +12,8 @@ public class HumanPlayer extends Player {
         super(displayName, avatar);
     }
 
-    public HumanPlayer(String displayName) throws IllegalArgumentException {
-        this(displayName, null);
-    }
-    
+public HumanPlayer(String displayName) throws IllegalArgumentException {
+    this(displayName, null);
+}
+
 }
