@@ -1,8 +1,8 @@
 /**
- * Subclass of Player representing the AI/Computer player.
- * @author Archange DESTINE
- * @author YOUR_NAME_HERE
- */
+* Subclass of Player representing the AI/Computer player.
+* @author Archange DESTINE
+* @author Kosai Zain Aldin
+*/
 public class ComputerPlayer extends Player {
 
     // TO-DO
@@ -11,8 +11,8 @@ public class ComputerPlayer extends Player {
         super(displayName,avatar);
     }
 
-    public ComputerPlayer(String displayName) throws IllegalArgumentException {
-        super(displayName, null);
-    }
+public ComputerPlayer(String displayName) throws IllegalArgumentException {
+    super(displayName, null);
+}
 
 }
