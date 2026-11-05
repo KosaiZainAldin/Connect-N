@@ -29,7 +29,14 @@ Players can compete against a computer opponent with four difficulty levels, eac
 
 ## My Contributions
 
-I worked on the game engine, including implementing the win detection logic. This involved checking the board for consecutive pieces horizontally, vertically, and diagonally, while supporting different board dimensions and winning conditions.
+I contributed to the development of the game's engine, focusing on core game logic and win detection. My work included:
+
+- Implementing logic to determine when a player wins by connecting the required number of consecutive pieces.
+- Handling win detection in all four directions: horizontally, vertically, and along both diagonal directions.
+- Supporting the game's configurable board dimensions and winning conditions in the game logic.
+- Contributing to the development and integration of the engine with the overall game.
+
+The project was developed using course provided materials, and my contributions focused on the game logic rather than the graphical user interface.
 
 ## Project Structure
 
@@ -38,4 +45,4 @@ I worked on the game engine, including implementing the win detection logic. Thi
 
 ## Academic Context
 
-Developed as part of a university programming assignment using provided course materials.
+Developed as a programming project for **CS 211**.
