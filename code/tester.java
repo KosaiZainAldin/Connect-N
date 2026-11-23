@@ -103,7 +103,7 @@ public class tester {
         };
 
         tester b = new tester();
-        Player p = new HumanPlayer("abo");
+        Player p = new HumanPlayer("Sam");
         System.out.print(b.checkWinForBoardState(a, p));
     }
 }
