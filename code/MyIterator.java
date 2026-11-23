@@ -10,20 +10,20 @@ public class MyIterator<T> implements Iterator<T> {
         currentIndex = 0;
     }
 
-public boolean hasNext(){
-    if (currentIndex < list.size()){
-        return true;
+    @Override
+    public boolean hasNext() {
+        if (currentIndex < list.size()) {
+            return true;
+        }
+        return false;
     }
-return false;
-}
 
-public T next(){
-    if(!hasNext()){
-        throw new NoSuchElementException();
+    @Override
+    public T next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        currentIndex++;
+        return list.get(currentIndex - 1);
     }
-currentIndex++;
-return list.get(currentIndex -1);
-
-}
-
 }
