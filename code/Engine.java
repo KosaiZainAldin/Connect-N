@@ -1,6 +1,5 @@
 /**
 * The game engine that manages turns, validates moves, and implements the AI logic.
-* @author Archange DESTINE
 * @author Kosai Zain Aldin
 */
 
@@ -15,13 +14,7 @@ public class Engine {
     private DifficultyLevel difficultyLevel;
     private long movesAnalized;
 
-    //TO-DO
-    // set the fields
-    // 1 player must be Human Player
-    // 1 player must be Computer Player
-    // player1, player2 and difficultyLevel must not be null
-    // currentPlayer, indicating the player who will play next, is set to player1.
-    // For invalid argument, throw IllegalArgumentException
+
     public Engine(Player player1, Player player2, int rows, int cols, int connectN, DifficultyLevel difficultyLevel) {
         if (player1 == null || player2 == null || difficultyLevel == null) {
             throw new IllegalArgumentException("invalid input");
@@ -45,8 +38,7 @@ this.connectN = connectN;
 this.board = new Board(rows, cols, connectN);
 }
 
-//TO-DO
-// This constructor uses DifficultyLevel.MEDIUM as DifficultyLevel
+
 public Engine(Player player1, Player player2, int rows, int cols, int connectN) {
     this(player1, player2, rows, cols, connectN, DifficultyLevel.MEDIUM);
 }
@@ -59,59 +51,40 @@ public Engine(Player player1, Player player2) {
     this(player1, player2, 6, 7, 4);
 }
 
-public Player getCurrentPlayer() {
-    return currentPlayer;
-}
+// Professor-provided getCurrentPlayer implementation removed.
 
-public int getCurrentPlayerPieceColor() {
-    return (currentPlayer == player1) ? 1 : 2;
-}
 
-public int getHumanPlayerPieceColor() {
-    return (player1 instanceof HumanPlayer) ? 1 : 2;
-}
+// Professor-provided getCurrentPlayerPieceColor implementation removed.
 
-public int getComputerPlayerPieceColor() {
-    return (player1 instanceof HumanPlayer) ? 2 : 1;
-}
 
-public boolean isGameOver() {
-    return gameOver;
-}
+// Professor-provided getHumanPlayerPieceColor implementation removed.
 
-public void setGameOver(boolean gameOver) {
-    this.gameOver = gameOver;
-}
 
-public void endCurrentPlayerTurn() {
-    if (currentPlayer == player1) {
-        currentPlayer = player2;
-    } else {
-    currentPlayer = player1;
-}
-}
+// Professor-provided getComputerPlayerPieceColor implementation removed.
 
-// TO-DO
-// Drop piece and return the row where it landed, or -1 if invalid
+
+// Professor-provided isGameOver implementation removed.
+
+
+// Professor-provided setGameOver implementation removed.
+
+
+// Professor-provided endCurrentPlayerTurn implementation removed.
+
+
+
 public int dropPiece(int col, int piece) {
     int[][] b = board.getArray();
     return Board.dropPieceSimulated(b, col, piece);
 }
 
-private boolean isTerminal(int[][] b) {
-    return checkWinForBoardState(b, player1) || checkWinForBoardState(b, player2) || Board.isBoardFullForBoard(b);
-}
+// Professor-provided isTerminal implementation removed.
 
-public Board getBoard() {
-    return board;
-}
 
-// TO-DO
-// Check if the given player won the game
-// Win can be acheived differen ways:
-// - Honrizontal
-// - Vertical
-// - Diogonal / or \
+// Professor-provided getBoard implementation removed.
+
+
+
 private boolean checkWinForBoardState(int[][] b, Player player) {
     int piece = (player instanceof HumanPlayer) ? 1 : 2;
     int picinline = 0;
@@ -230,18 +203,10 @@ if (bestCol != -1) {
 
 }
 
-public boolean checkWin(Player player) {
-    return checkWinForBoardState(board.getArray(), player);
-}
+// Professor-provided checkWin implementation removed.
 
-//TO-DO
-// - Return the best move (col) and an evaluation score for that "best" move.
-// - Use recursion and implement a minimax algorithm.
-// - The first part (simulating AI next move) is provided. A good evaluation of that move needs to anticipate the player's next move. An evaluation of the oppoment next move neeed to take into account the Computer next move, and so one.
-// - Such process will happen for all possible moves.
-// - Since we cannot comptute too many steps ahead (risking stack over flow, one need to stop at some point (based on depth param)).
-// - If after a certain level, we do not have a terminal state (win, lost, draw), the Computer will rely on a heuristic evaluation of the position.
-// - This heuristic evaluation is already implemented (see evaluateBoardState(), scoreWindows() and evaluateLine()).
+
+
 public int[] findBestMove(int[][] boardState, int depth, boolean maximizing) {
     movesAnalized += 1;
 
@@ -291,159 +256,22 @@ return new int[]{bestCol, minEval};
 }
 }
 
-//TO-DO: Optional BONUS (+5 points)
-//Optional: Edit this method so it can use an efficient version of mini-max algorithm
-// It will eliminated branches that cannot affect the final decision at some point. (read more about alpha-bete pruning for minimax algorithm.)
-// if you have no idea of how to implement this, you chan seek for help or just ignore this Bonus component.
-public int[] findBestMove(int[][] boardState, int depth, int alpha, int beta, boolean maximizing) {
-    movesAnalized += 1;
 
-    int AI = (player1 instanceof ComputerPlayer) ? 1 : 2;
-    int PLAYER = (player1 instanceof ComputerPlayer) ? 2 : 1;
 
-    if (depth == 0 || isTerminal(boardState)) {
-        return new int[] { -1, evaluateBoardState(boardState) };
-    }
-
-int bestCol = -1;
-
-if (maximizing) { // AI's turn
-    int maxEval = Integer.MIN_VALUE;
-    for (int col = 0; col < board.getCols(); col++) {
-        if (Board.isValidMove(boardState, col)) {
-            int[][] tempBoard = Board.copyAGivenBoardState(boardState);
-            Board.dropPieceSimulated(tempBoard, col, AI);
-            int eval = findBestMove(tempBoard, depth - 1, alpha, beta, false)[1];
-
-            if (eval > maxEval) {
-                maxEval = eval;
-                bestCol = col;
-            }
-
-    }
-}
-return new int[] { bestCol, maxEval };
-
-} else { // Player's turn
-    int minEval = Integer.MAX_VALUE;
-    for (int col = 0; col < board.getCols(); col++) {
-        if (Board.isValidMove(boardState, col)) {
-            int[][] tempBoard = Board.copyAGivenBoardState(boardState);
-            Board.dropPieceSimulated(tempBoard, col, PLAYER);
-            int eval = findBestMove(tempBoard, depth - 1, alpha, beta, true)[1];
-
-            if (eval < minEval) {
-                minEval = eval;
-                bestCol = col;
-            }
-
-    }
-}
-return new int[] { bestCol, minEval };
-}
-}
 
 // heuristic evaluation of a given board state from the perspective of the
 // specified piece color.
-private int scoreWindows(int[][] b, int piece) {
+// Professor-provided scoreWindows implementation removed.
 
-    int score = 0;
-    int opp = (piece == 1) ? 2 : 1;
-
-    // Horizontal, Vertical, Diagonals scoring
-    // Horizontal
-    for (int r = 0; r < board.getRows(); r++) {
-        for (int c = 0; c < board.getCols() - connectN + 1; c++) {
-            int[] line = new int[connectN];
-            for (int i = 0; i < connectN; i++) {
-                line[i] = b[r][c + i];
-            }
-        score += evaluateLine(line, piece, opp);
-    }
-}
-// Vertical
-for (int c = 0; c < board.getCols(); c++) {
-    for (int r = 0; r < board.getRows() - connectN + 1; r++) {
-        int[] line = new int[connectN];
-        for (int i = 0; i < connectN; i++) {
-            line[i] = b[r + i][c];
-        }
-    score += evaluateLine(line, piece, opp);
-}
-}
-// Diagonal /
-for (int r = 0; r < board.getRows() - connectN + 1; r++) {
-    for (int c = 0; c < board.getCols() - connectN + 1; c++) {
-        int[] line = new int[connectN];
-        for (int i = 0; i < connectN; i++) {
-            line[i] = b[r + i][c + i];
-        }
-    score += evaluateLine(line, piece, opp);
-}
-}
-// Diagonal \
-for (int r = 0; r < board.getRows() - connectN + 1; r++) {
-    for (int c = connectN - 1; c < board.getCols(); c++) {
-        int[] line = new int[connectN];
-        for (int i = 0; i < connectN; i++) {
-            line[i] = b[r + i][c - i];
-        }
-    score += evaluateLine(line, piece, opp);
-}
-}
-return score;
-}
 
 // Local herustic evaluation of a n-cell line for the specified piece color.
 // n is typically the connectN.
 // It returns a positive score if favorable for the piece, negative if favorable
 // for opponent.
-private long evaluateLine(int[] line, int piece, int opp) {
-    long score = 0;
-    int countPiece = 0;
-    int countOpp = 0;
-    int countEmpty = 0;
-    for (int cell : line) {
-        if (cell == piece)
-        countPiece++;
-        else if (cell == opp)
-        countOpp++;
-        else
-        countEmpty++;
-    }
+// Professor-provided evaluateLine implementation removed.
 
-int diff = countPiece - countOpp;
-if (countOpp == 0)
-score += Math.pow(10, countPiece - countEmpty);
 
-else {
-    if (countPiece > countOpp)
-    score += Math.pow(10, diff);
-    else if (countOpp > countPiece)
-    score -= Math.pow(10, -diff);
-}
+// Professor-provided evaluateBoardState implementation removed.
 
-return score;
-}
-
-private int evaluateBoardState(int[][] b) {
-    // Simple heuristic: +score for Computer pieces, -score for Human Player pieces
-    // More advanced heuristics can consider potential winning lines, blocking
-    // opponent, etc.
-    int computerPiece = player1 instanceof ComputerPlayer ? 1 : 2;
-    int humanPiece = player1 instanceof ComputerPlayer ? 2 : 1;
-    int score = 0;
-
-    // Center preference: Generally better to control the center column
-    for (int row = 0; row < board.getRows(); row++) {
-        if (b[row][board.getCols() / 2] == computerPiece)
-        score += 4;
-    }
-
-// Score horizontal, vertical, and diagonal lines (just a simple count of pieces
-// in a row for now)
-score += scoreWindows(b, computerPiece) - scoreWindows(b, humanPiece);
-return score;
-}
 
 }
